@@ -88,21 +88,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="dash.php?q=0"><b>Dashboard</b></a>
+                <a class="navbar-brand" href={{ route('adminhome') }}><b>Dashboard</b></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="dash.php?q=0">Home<span class="sr-only">(current)</span></a></li>
-                    <li><a href="dash.php?q=1">Users</a></li>
-                    <li><a href="dash.php?q=2">Ranking</a></li>
-                    <li><a href="dash.php?q=3">Feedback</a></li>
-                    <li class="dropdown ">
+                    <li class="{{ Request::is('admin') ? 'active' : '' }}"><a href={{ route('adminhome') }}>Home<span class="sr-only">(current)</span></a></li>
+                    <li class="{{ Request::is('admin/users') ? 'active' : '' }}"><a href={{ route('usersindex') }}>Users</a></li>
+                    <li class="{{ Request::is('admin/ranking') ? 'active' : '' }}"><a href={{ route('adminranking') }}>Ranking</a></li>
+                    <li class="{{ Request::is('admin/feedback') || Request::is('admin/feedback/*') ? 'active' : '' }}"><a href={{ route('adminfeedback') }}>Feedback</a></li>
+                    <li class="{{ Request::is('admin/quiz/*') ? 'active' : '' }} dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false">Quiz<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="dash.php?q=4">Add Quiz</a></li>
-                            <li><a href="dash.php?q=5">Remove Quiz</a></li>
+                            <li><a href={{ route('quizdetails') }}>Add Quiz</a></li>
+                            <li><a href={{ route('quizdestroy') }}>Remove Quiz</a></li>
 
                         </ul>
                     </li>
