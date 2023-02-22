@@ -21,6 +21,8 @@ use App\Http\Controllers\QuestionsController;
 */
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('adminlogin');
+Route::get('/admin/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/admin/dashboard', [AdminController::class, 'adminHome'])->name('adminhome');
 Route::get('/admin/ranking', [AdminController::class, 'adminRanking'])->name('adminranking');

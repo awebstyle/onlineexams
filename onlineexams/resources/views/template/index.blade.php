@@ -3,7 +3,7 @@
 <body>
     @include('template.partials._header')
     @yield('content')
-    @if(Request::is('user/*'))
+    @if(Request::is('user/*') || Request::is('/'))
         @include('template.partials._footer')
     @endif
 </body>
