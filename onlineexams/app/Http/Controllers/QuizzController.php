@@ -6,12 +6,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Session;
+
+use App\Models\Quiz;
+
 class QuizzController extends Controller
 {
 
-    public function quizDetails(){
-        return view('quizz.show');
-    }
     /**
      * Display a listing of the resource.
      */
@@ -25,7 +26,7 @@ class QuizzController extends Controller
      */
     public function create(): Response
     {
-        //
+        return response(view("quizz.create"));
     }
 
     /**
@@ -33,7 +34,21 @@ class QuizzController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        $quiz = new Quiz();
+        $quiz->topic = $request->input('topic');
+        $quiz->totalquestions = $request->input('totalquestions');
+        $quiz->mark = $request->input('mark');
+        $quiz->timelimit = $request->input('timelimit');
+        $quiz->description = $request->input('description');
+        $quiz->num = 0;
+
+        $quiz->save();
+        $quiz = Quiz::where('topic', $request->input('topic'))->first();
+        Session::put('quiz', $quiz);
+
+        
+
+        return redirect("questions/create");
     }
 
     /**

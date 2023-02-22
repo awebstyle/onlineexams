@@ -16,22 +16,23 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <form class="form-horizontal title1" name="form"
-                            action="update.php?q=addqns&n=1&eid=62417a169b4a1&ch=4 " method="POST">
+                            action={{ route('questions.store') }} method="POST">
+                            @csrf
                             <fieldset>
-                                <b>Question number&nbsp;1&nbsp;:</><br /><!-- Text input-->
+                                <b>Question number&nbsp;{{ $quiz->num + 1 }}&nbsp;:</><br /><!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-12 control-label" for="qns1 "></label>
                                         <div class="col-md-12">
-                                            <textarea rows="3" cols="5" name="qns1" class="form-control"
-                                                placeholder="Write question number 1 here..."></textarea>
+                                            <textarea rows="3" cols="5" name="question" class="form-control"
+                                                placeholder="Write question number 1 here..." required></textarea>
                                         </div>
                                     </div>
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-12 control-label" for="11"></label>
                                         <div class="col-md-12">
-                                            <input id="11" name="11" placeholder="Enter option a"
-                                                class="form-control input-md" type="text">
+                                            <input id="11" name="optiona" placeholder="Enter option a"
+                                                class="form-control input-md" type="text" required>
 
                                         </div>
                                     </div>
@@ -39,8 +40,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12 control-label" for="12"></label>
                                         <div class="col-md-12">
-                                            <input id="12" name="12" placeholder="Enter option b"
-                                                class="form-control input-md" type="text">
+                                            <input id="12" name="optionb" placeholder="Enter option b"
+                                                class="form-control input-md" type="text" required>
 
                                         </div>
                                     </div>
@@ -48,8 +49,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12 control-label" for="13"></label>
                                         <div class="col-md-12">
-                                            <input id="13" name="13" placeholder="Enter option c"
-                                                class="form-control input-md" type="text">
+                                            <input id="13" name="optionc" placeholder="Enter option c"
+                                                class="form-control input-md" type="text" required>
 
                                         </div>
                                     </div>
@@ -57,16 +58,16 @@
                                     <div class="form-group">
                                         <label class="col-md-12 control-label" for="14"></label>
                                         <div class="col-md-12">
-                                            <input id="14" name="14" placeholder="Enter option d"
-                                                class="form-control input-md" type="text">
+                                            <input id="14" name="optiond" placeholder="Enter option d"
+                                                class="form-control input-md" type="text" required>
 
                                         </div>
                                     </div>
                                     <br />
                                     <b>Correct answer</b>:<br />
-                                    <select id="ans1" name="ans1" placeholder="Choose correct answer "
-                                        class="form-control input-md">
-                                        <option value="a">Select answer for question 1</option>
+                                    <select id="ans1" name="correct" placeholder="Choose correct answer "
+                                        class="form-control input-md" required>
+                                        <option value="">Select answer for question {{ $quiz->num + 1 }}</option>
                                         <option value="a">option a</option>
                                         <option value="b">option b</option>
                                         <option value="c">option c</option>

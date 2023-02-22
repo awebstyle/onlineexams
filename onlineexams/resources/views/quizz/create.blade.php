@@ -14,16 +14,17 @@
                     <span class="title1" style="margin-left:40%;font-size:30px;"><b>Enter Quiz Details</b></span><br /><br />
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <form class="form-horizontal title1" name="form" action="update.php?q=addquiz" method="POST">
+                        <form class="form-horizontal title1" name="form" action={{ route('quizzes.store') }} method="POST">
+                           @csrf
                             <fieldset>
 
 
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" for="name"></label>
+                                    <label class="col-md-12 control-label" for="topic"></label>
                                     <div class="col-md-12">
-                                        <input id="name" name="name" placeholder="Enter Quiz title"
-                                            class="form-control input-md" type="text">
+                                        <input id="topic" name="topic" placeholder="Enter Quiz title"
+                                            class="form-control input-md" type="text" required>
 
                                     </div>
                                 </div>
@@ -32,20 +33,20 @@
 
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" for="total"></label>
+                                    <label class="col-md-12 control-label" for="totalquestions"></label>
                                     <div class="col-md-12">
-                                        <input id="total" name="total" placeholder="Enter total number of questions"
-                                            class="form-control input-md" type="number">
+                                        <input id="totalquestions" name="totalquestions" placeholder="Enter total number of questions"
+                                            class="form-control input-md" type="number" required>
 
                                     </div>
                                 </div>
 
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" for="right"></label>
+                                    <label class="col-md-12 control-label" for="mark"></label>
                                     <div class="col-md-12">
-                                        <input id="right" name="right" placeholder="Enter marks on right answer"
-                                            class="form-control input-md" min="0" type="number">
+                                        <input id="mark" name="mark" placeholder="Enter marks on right answer"
+                                            class="form-control input-md" min="0" type="number" required>
 
                                     </div>
                                 </div>
@@ -63,11 +64,11 @@
 
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" for="time"></label>
+                                    <label class="col-md-12 control-label" for="timelimit"></label>
                                     <div class="col-md-12">
-                                        <input id="time" name="time"
+                                        <input id="timelimit" name="timelimit"
                                             placeholder="Enter time limit for test in minute" class="form-control input-md"
-                                            min="1" type="number">
+                                            min="1" type="number" required>
 
                                     </div>
                                 </div>
@@ -86,9 +87,9 @@
 
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-12 control-label" for="desc"></label>
+                                    <label class="col-md-12 control-label" for="description"></label>
                                     <div class="col-md-12">
-                                        <textarea rows="8" cols="8" name="desc" class="form-control" placeholder="Write description here..."></textarea>
+                                        <textarea required rows="8" cols="8" name="description" class="form-control" placeholder="Write description here..."></textarea> 
                                     </div>
                                 </div>
 

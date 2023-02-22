@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Quiz;
 
 class AdminController extends Controller
 {
     public function adminHome(){
-        return view('admin.dashboard');
+        $quizzes = Quiz::all();
+        return view('admin.dashboard')->with('quizzes', $quizzes);
     }
 
     public function adminRanking(){

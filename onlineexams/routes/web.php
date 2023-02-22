@@ -29,13 +29,16 @@ Route::get('/admin/feedback/viewfeedback', [AdminController::class, 'viewAdminFe
 
 Route::get('/admin/users', [UsersController::class, 'index'])->name('usersindex');
 
-Route::get('/admin/quiz/quizdetails', [QuizzController::class, 'quizDetails'])->name('quizdetails');
+
 Route::get('/admin/quiz/destroy', [QuizzController::class, 'destroy'])->name('quizdestroy');
 
-Route::get('/admin/questiondetails', [QuestionsController::class, 'questionDetails'])->name('questiondetails');
+
 
 Route::get('/user/home', [UserController::class, 'userHome'])->name('userhome');
 Route::get('/user/history', [UserController::class, 'userHistory'])->name('userhistory');
 Route::get('/user/ranking', [UserController::class, 'userRanking'])->name('userranking');
 Route::get('/user/exam', [UserController::class, 'userExam'])->name('userexam');
+
+Route::resource('quizzes', QuizzController::class);
+Route::resource('questions', QuestionsController::class);
 
