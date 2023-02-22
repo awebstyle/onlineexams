@@ -1,7 +1,8 @@
+
 <!--Footer start-->
     <div class="row footer">
         <div class="col-md-3 box">
-            <a href="http://www.projectworlds/online-examination" target="_blank">About us</a>
+            <a href="#" target="_blank">About us</a>
         </div>
         <div class="col-md-3 box">
             <a href="#" data-toggle="modal" data-target="#login">Admin Login</a>
@@ -10,7 +11,7 @@
             <a href="#" data-toggle="modal" data-target="#developers">Developers</a>
         </div>
         <div class="col-md-3 box">
-            <a href="feedback.php" target="_blank">Feedback</a>
+            <a href="#" target="_blank">Feedback</a>
         </div>
     </div>
     <!-- Modal For Developers-->
@@ -85,3 +86,4 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!--footer end-->
+    

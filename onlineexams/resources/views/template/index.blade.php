@@ -3,6 +3,10 @@
 <body>
     @include('template.partials._header')
     @yield('content')
-    @include('template.partials._footer')
+    @if(Request::is('admin/*'))
+        
+    @else
+        @include('template.partials._footer')
+    @endif
 </body>
 </html>

@@ -51,7 +51,7 @@
                                 </div>
 
                                 <!-- Text input-->
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label class="col-md-12 control-label" for="wrong"></label>
                                     <div class="col-md-12">
                                         <input id="wrong" name="wrong"
@@ -59,7 +59,7 @@
                                             class="form-control input-md" min="0" type="number">
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Text input-->
                                 <div class="form-group">
@@ -73,7 +73,7 @@
                                 </div>
 
                                 <!-- Text input-->
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label class="col-md-12 control-label" for="tag"></label>
                                     <div class="col-md-12">
                                         <input id="tag" name="tag"
@@ -81,7 +81,7 @@
                                             class="form-control input-md" type="text">
 
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <!-- Text input-->
