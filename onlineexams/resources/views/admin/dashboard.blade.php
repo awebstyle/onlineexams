@@ -22,21 +22,42 @@
                                 <td><b>Time limit</b></td>
                                 <td></td>
                             </tr>
-                            <input type="hidden" {{$increment=1}}>
-                            @foreach($quizzes as $quiz)
+                            <input type="hidden" {{ $increment = 1 }}>
+                            
+                            @foreach ($quizzes as $quiz)
+                                <input type="hidden" {{ $restart = 0 }}>
+                                @foreach ($scores as $score)
+                                    @if ($score->email == Session::get('admin')->email && $score->topic == $quiz->topic)
+                                        <input type="hidden" {{ $restart++ }}>
+                                    @endif
+                                @endforeach
                                 <tr>
-                                    <td>2</td>
-                                    <td>{{$quiz->topic}}</td>
-                                    <td>{{$quiz->totalquestions}}</td>
-                                    <td>{{$quiz->mark * $quiz->totalquestions}}</td>
-                                    <td>{{$quiz->timelimit}} min</td>
-                                    <td><b><a href="account.php?q=quiz&step=2&eid=55897338a6659&n=1&t=5"
-                                                class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span
-                                                    class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span
-                                                    class="title1"><b>Start</b></span></a></b></td>
+                                    <td>{{ $increment }}</td>
+                                    <td>{{ $quiz->topic }}</td>
+                                    <td>{{ $quiz->totalquestions }}</td>
+                                    <td>{{ $quiz->mark * $quiz->totalquestions }}</td>
+                                    <td>{{ $quiz->timelimit }} min</td>
+                                    @if($restart === 0)
+                                    <td><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1"
+                                                style="margin:0px;background:#99cc32"><span
+                                                    class="glyphicon glyphicon-new-window"
+                                                    aria-hidden="true"></span>&nbsp;<span
+                                                    class="title1"><b>Start</b></span>
+                                        </a>
+                                    </td>
+                                    @else
+                                        <td><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1"
+                                                style="margin:0px;background:red"><span
+                                                    class="glyphicon glyphicon-new-window"
+                                                    aria-hidden="true"></span>&nbsp;<span
+                                                    class="title1"><b>Restart</b></span>
+                                        </a>
+                                    </td>
+                                    @endif
+
                                 </tr>
-                                <input type="hidden" {{$increment++}}>
-                           @endforeach 
+                                <input type="hidden" {{ $increment++ }}>
+                            @endforeach
                         </table>
                     </div>
                 </div>

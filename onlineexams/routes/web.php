@@ -28,11 +28,17 @@ Route::get('/admin/dashboard', [AdminController::class, 'adminHome'])->name('adm
 Route::get('/admin/ranking', [AdminController::class, 'adminRanking'])->name('adminranking');
 Route::get('/admin/feedback', [AdminController::class, 'adminFeedback'])->name('adminfeedback');
 Route::get('/admin/feedback/viewfeedback', [AdminController::class, 'viewAdminFeedback'])->name('viewadminfeedback');
+Route::get('/admin/startquiz/{topic}', [AdminController::class, 'startQuiz'])->name('startquiz');
+Route::get('/admin/assessements', [AdminController::class, 'assessements'])->name('assessements');
+Route::post('/admin/saveanswer/{id}', [AdminController::class, 'saveAnswer'])->name('saveanswer');
+Route::get('/admin/nextquestion', [AdminController::class, 'nextQuestion'])->name('nextquestion');
+Route::get('/admin/getresults', [AdminController::class, 'getResults'])->name('getresults');
 
 Route::get('/admin/users', [UsersController::class, 'index'])->name('usersindex');
 
 
 Route::get('/admin/quiz/destroy', [QuizzController::class, 'destroy'])->name('quizdestroy');
+
 
 
 
