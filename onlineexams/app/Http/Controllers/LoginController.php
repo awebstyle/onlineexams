@@ -6,8 +6,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Admin;
+use App\Models\Developer;
 
 class LoginController extends Controller
 {
@@ -20,7 +22,7 @@ class LoginController extends Controller
         if($admin){
             if($admin->password == $request->input('password')){
                 Session::put('admin', $admin);
-                return redirect('/admin/dashboard');
+                return redirect('/dashboard');
             }
             else return back();
         }
@@ -29,8 +31,31 @@ class LoginController extends Controller
         }
     }
 
+    function userLogin(Request $request){
+        $developer = Developer::where('email', $request->input('email'))->first();
+        if($developer){
+            if(Hash::check($request->input('password'), $developer->password)){
+                Session::put('developer', $developer);
+                return redirect('/dashboard');
+            }
+            else{
+                return back()->with('status', 'wrong email or password');
+            }
+        } 
+        else return back()->with('status', 'wrong email or password');
+     }
+        
+    
+    
+
     function logout(){
-        Session::forget('admin');
+        if(Session::has('admin')){
+            Session::forget('admin');
+        }
+        elseif(Session::has('developer')){
+            Session::forget('developer');
+        }
+        
         return redirect('/');
     }
 }

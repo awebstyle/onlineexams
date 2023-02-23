@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\QuizzController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\DevelopersController;
+
 
 
 /*
@@ -22,17 +24,18 @@ use App\Http\Controllers\QuestionsController;
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'adminLogin'])->name('adminlogin');
-Route::get('/admin/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/user/login', [LoginController::class, 'userLogin'])->name('userlogin');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/admin/dashboard', [AdminController::class, 'adminHome'])->name('adminhome');
+Route::get('/dashboard', [AdminController::class, 'home'])->name('home');
 Route::get('/admin/ranking', [AdminController::class, 'adminRanking'])->name('adminranking');
 Route::get('/admin/feedback', [AdminController::class, 'adminFeedback'])->name('adminfeedback');
 Route::get('/admin/feedback/viewfeedback', [AdminController::class, 'viewAdminFeedback'])->name('viewadminfeedback');
-Route::get('/admin/startquiz/{topic}', [AdminController::class, 'startQuiz'])->name('startquiz');
-Route::get('/admin/assessements', [AdminController::class, 'assessements'])->name('assessements');
-Route::post('/admin/saveanswer/{id}', [AdminController::class, 'saveAnswer'])->name('saveanswer');
-Route::get('/admin/nextquestion', [AdminController::class, 'nextQuestion'])->name('nextquestion');
-Route::get('/admin/getresults', [AdminController::class, 'getResults'])->name('getresults');
+Route::get('/startquiz/{topic}', [AdminController::class, 'startQuiz'])->name('startquiz');
+Route::get('/assessements', [AdminController::class, 'assessements'])->name('assessements');
+Route::post('/saveanswer/{id}', [AdminController::class, 'saveAnswer'])->name('saveanswer');
+Route::get('/quiz/nextquestion', [AdminController::class, 'nextQuestion'])->name('nextquestion');
+Route::get('/getresults', [AdminController::class, 'getResults'])->name('getresults');
 
 Route::get('/admin/users', [UsersController::class, 'index'])->name('usersindex');
 
@@ -42,11 +45,13 @@ Route::get('/admin/quiz/destroy', [QuizzController::class, 'destroy'])->name('qu
 
 
 
-Route::get('/user/home', [UserController::class, 'userHome'])->name('userhome');
+//Route::get('/user/home', [UserController::class, 'userHome'])->name('userhome');
 Route::get('/user/history', [UserController::class, 'userHistory'])->name('userhistory');
 Route::get('/user/ranking', [UserController::class, 'userRanking'])->name('userranking');
-Route::get('/user/exam', [UserController::class, 'userExam'])->name('userexam');
+
 
 Route::resource('quizzes', QuizzController::class);
 Route::resource('questions', QuestionsController::class);
+Route::resource('developers', DevelopersController::class);
+
 

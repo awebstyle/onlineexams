@@ -19,7 +19,8 @@
                             <h4 class="modal-title title1"><span style="color:orange">Log In</span></h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action="login.php?q=index.php" method="POST">
+                            <form class="form-horizontal" action={{route('userlogin')}} method="POST">
+                                @csrf
                                 <fieldset>
 
 
@@ -61,7 +62,7 @@
     </div>
 
 
-    @elseif(Request::is('user/*'))
+    @elseif(Session::has('developer'))
     {{-- si user --}}
     <div class="header">
       <div class="row">
@@ -69,7 +70,7 @@
           <span class="logo">Test Your Skill</span>
         </div>
         <div class="col-md-4 col-md-offset-2">
-          <span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Hello,</span> <a href="" class="log log1">Héritier</a>&nbsp;|&nbsp;<a href="" class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Signout</button></a></span>
+          <span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Hello,</span> <a href="#" class="log log1">{{ Session::get('developer')->name }}</a>&nbsp;|&nbsp;<a href={{ route('logout') }} class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Signout</button></a></span>
         </div>
       </div>
     </div>
@@ -85,14 +86,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand {{ Request::is('user/home') ? 'active' : '' }}" href={{ route('userhome') }}><b>Netcamp</b></a>
+            <a class="navbar-brand {{ Request::is('/dashboard') ? 'active' : '' }}" href={{ route('home') }}><b>Netcamp</b></a>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="{{ Request::is('user/home') ? 'active' : '' }}" ><a href={{ route('userhome') }}><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>
+              <li class="{{ Request::is('/dashboard') ? 'active' : '' }}" ><a href={{ route('home') }}><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>
               <li class="{{ Request::is('user/history') ? 'active' : '' }}"><a href={{ route('userhistory') }}><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;History</a></li>
               <li class="{{ Request::is('user/ranking') ? 'active' : '' }}"><a href={{ route('userranking')}}><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking</a></li>
-              <li class="pull-right"> <a href=""><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Signout</a></li>
+              <li class="pull-right"> <a href={{ route('logout') }}><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Signout</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
@@ -104,7 +105,7 @@
         </div><!-- /.container-fluid -->
       </nav>
       <!--end navigation menu-->
-      @else
+      @elseif(Session::has('admin'))
     {{-- si admin --}}
 
     <div class="header">
@@ -132,12 +133,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href={{ route('adminhome') }}><b>Dashboard</b></a>
+                <a class="navbar-brand" href={{ route('home') }}><b>Dashboard</b></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}"><a href={{ route('adminhome') }}>Home<span class="sr-only">(current)</span></a></li>
+                    <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href={{ route('home') }}>Home<span class="sr-only">(current)</span></a></li>
                     <li class="{{ Request::is('admin/users') ? 'active' : '' }}"><a href={{ route('usersindex') }}>Users</a></li>
                     <li class="{{ Request::is('admin/ranking') ? 'active' : '' }}"><a href={{ route('adminranking') }}>Ranking</a></li>
                     <li class="{{ Request::is('admin/feedback') || Request::is('admin/feedback/*') ? 'active' : '' }}"><a href={{ route('adminfeedback') }}>Feedback</a></li>

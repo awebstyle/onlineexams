@@ -35,7 +35,7 @@ class QuestionsController extends Controller
         }
         else{
             Session::forget('quiz');
-            return redirect('/admin/dashboard');
+            return redirect('/dashboard');
         }
         
     }

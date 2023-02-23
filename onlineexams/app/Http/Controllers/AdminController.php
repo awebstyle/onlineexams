@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Score;
+use App\Models\Developer;
 
 class AdminController extends Controller
 {
-    public function adminHome(){
+    public function home(){
         $quizzes = Quiz::all();
         $scores = Score::all();
         return view('admin.dashboard')->with('quizzes', $quizzes)->with('scores', $scores);
@@ -39,7 +40,7 @@ class AdminController extends Controller
             
         }
         
-        return redirect('/admin/assessements');
+        return redirect('/assessements');
     } 
 
     public function assessements(){
@@ -57,8 +58,18 @@ class AdminController extends Controller
         
         $question = Question::find($id);
 
-        $score = Score::where('email', Session::get('admin')->email)
+        if(Session::has('admin')){
+            $score = Score::where('email', Session::get('admin')->email)
                 ->where('topic', Session::get('quiz')->topic)->first();
+        }
+        else{
+            $score = Score::where('email', Session::get('developer')->email)
+                ->where('topic', Session::get('quiz')->topic)->first();
+            
+            $developer = Developer::where('email', Session::get('developer')->email)->first();
+        }
+        
+
         
         if($request->input('ans')){
             if($request->input('ans') == Session::get('question')->correct){
@@ -66,7 +77,6 @@ class AdminController extends Controller
                     Session::put('score', Session::get('quiz')->mark);
                 }
                 else{
-                    /* plutôt que de faire un forget, il n'y a pas moyen de mettre la session à jour ? */
                     $totalScore = Session::get('score') + Session::get('quiz')->mark;
                     Session::forget('score');
                     Session::put('score', $totalScore);
@@ -87,9 +97,17 @@ class AdminController extends Controller
 
             $newScore = new Score();
             $newScore->topic = Session::get('quiz')->topic;
-            $newScore->email = Session::get('admin')->email;
+            if(Session::has('admin')){
+                $newScore->email = Session::get('admin')->email;
+            }
+            else $newScore->email = Session::get('developer')->email;
+            
             if(Session::get('score')){
                 $newScore->score = Session::get('score');
+                if(Session::get('developer')){
+                    $developer->score = $developer->score + Session::get('score');
+                    $developer->update();
+                }
             }
             else{
                 $newScore->score = 0;
@@ -111,6 +129,10 @@ class AdminController extends Controller
         elseif($score && Session::get('num') == Session::get('quiz')->totalquestions){
             
             if(Session::get('score')){
+                if(Session::get('developer')){
+                    $developer->score = $developer->score - $score->score + Session::get('score');
+                    $developer->update();
+                }
                 $score->score = Session::get('score');
             }
             else{
@@ -128,15 +150,7 @@ class AdminController extends Controller
             
         }
 
-        return redirect('/admin/nextquestion');
-        
-        /* if($request->input('ans') == Session::get('question')->correct){
-            print('correct'." ".$request->input('ans')." ".Session::get('question')->correct);
-        }
-        else print('false'." ".$request->input('ans')." ".Session::get('question')->correct); */
-    
-        
-        
+        return redirect('/quiz/nextquestion');
         
     }
 
@@ -146,22 +160,34 @@ class AdminController extends Controller
         Session::put('num', $num);
 
         if( $num <= Session::get('quiz')->totalquestions){
-            return redirect('/admin/assessements');
+            return redirect('/assessements');
         }
         else{
             Session::forget('num');
             Session::forget('score');
             Session::forget('solved');
-            return redirect('/admin/getresults');
+            return redirect('/getresults');
         } 
     }
 
     public function getResults(){
-       $score = Score::where('topic', Session::get('quiz')->topic)
+        if(Session::has('admin')){
+            $score = Score::where('topic', Session::get('quiz')->topic)
                 ->where('email', Session::get('admin')->email)
                 ->first();
-       Session::forget('quiz');
-       return view('admin.results')->with('score', $score);
+        }
+        else{
+            $score = Score::where('topic', Session::get('quiz')->topic)
+                ->where('email', Session::get('developer')->email)
+                ->first();
+        }
+       
+        Session::forget('quiz');
+        if(Session::has('admin')){
+            return view('admin.results')->with('score', $score);
+        }
+        else return view('user.history');
+        
     }
 
 

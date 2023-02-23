@@ -11,8 +11,9 @@
             <div class="col-md-7"></div>
             <div class="col-md-4 panel">
                 <!-- sign in form begins -->
-                <form class="form-horizontal" name="form" action="sign.php?q=account.php" onSubmit="return validateForm()"
+                <form class="form-horizontal" name="form" action={{ route('developers.store') }} onSubmit="return validateForm()"
                     method="POST">
+                    @csrf
                     <fieldset>
 
 
@@ -21,7 +22,7 @@
                             <label class="col-md-12 control-label" for="name"></label>
                             <div class="col-md-12">
                                 <input id="name" name="name" placeholder="Enter your name"
-                                    class="form-control input-md" type="text">
+                                    class="form-control input-md" type="text" required>
 
                             </div>
                         </div>
@@ -31,8 +32,8 @@
                             <label class="col-md-12 control-label" for="gender"></label>
                             <div class="col-md-12">
                                 <select id="gender" name="gender" placeholder="Enter your gender"
-                                    class="form-control input-md">
-                                    <option value="Male">Select Gender</option>
+                                    class="form-control input-md" required>
+                                    <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
@@ -44,7 +45,7 @@
                             <label class="col-md-12 control-label" for="name"></label>
                             <div class="col-md-12">
                                 <input id="college" name="college" placeholder="Enter your college name"
-                                    class="form-control input-md" type="text">
+                                    class="form-control input-md" type="text" required>
 
                             </div>
                         </div>
@@ -55,7 +56,7 @@
                             <label class="col-md-12 control-label title1" for="email"></label>
                             <div class="col-md-12">
                                 <input id="email" name="email" placeholder="Enter your email-id"
-                                    class="form-control input-md" type="email">
+                                    class="form-control input-md" type="email" required>
 
                             </div>
                         </div>
@@ -64,7 +65,7 @@
                         <div class="form-group">
                             <label class="col-md-12 control-label" for="mob"></label>
                             <div class="col-md-12">
-                                <input id="mob" name="mob" placeholder="Enter your mobile number"
+                                <input id="mob" name="phone" placeholder="Enter your mobile number"
                                     class="form-control input-md" type="number">
 
                             </div>
@@ -84,8 +85,8 @@
                         <div class="form-group">
                             <label class="col-md-12control-label" for="cpassword"></label>
                             <div class="col-md-12">
-                                <input id="cpassword" name="cpassword" placeholder="Conform Password"
-                                    class="form-control input-md" type="password">
+                                <input id="cpassword" name="cpassword" placeholder="Confirm Password"
+                                    class="form-control input-md" type="password" required>
 
                             </div>
                         </div>

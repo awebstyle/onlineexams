@@ -1,7 +1,7 @@
 @extends('../template/index')
 
 @section('title')
-    Admin Dashboard
+    Home
 @endsection
 
 @section('content')
@@ -27,32 +27,35 @@
                             @foreach ($quizzes as $quiz)
                                 <input type="hidden" {{ $restart = 0 }}>
                                 @foreach ($scores as $score)
-                                    @if ($score->email == Session::get('admin')->email && $score->topic == $quiz->topic)
-                                        <input type="hidden" {{ $restart++ }}>
+                                    @if(Session::has('admin'))
+                                        @if ($score->email == Session::get('admin')->email && $score->topic == $quiz->topic)
+                                            <input type="hidden" {{ $restart++ }}>
+                                        @endif
+                                    @else
+                                        @if ($score->email == Session::get('developer')->email && $score->topic == $quiz->topic)
+                                            <input type="hidden" {{ $restart++ }}>
+                                        @endif
                                     @endif
                                 @endforeach
                                 <tr>
-                                    <td>{{ $increment }}</td>
-                                    <td>{{ $quiz->topic }}</td>
-                                    <td>{{ $quiz->totalquestions }}</td>
-                                    <td>{{ $quiz->mark * $quiz->totalquestions }}</td>
-                                    <td>{{ $quiz->timelimit }} min</td>
-                                    @if($restart === 0)
-                                    <td><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1"
-                                                style="margin:0px;background:#99cc32"><span
-                                                    class="glyphicon glyphicon-new-window"
-                                                    aria-hidden="true"></span>&nbsp;<span
-                                                    class="title1"><b>Start</b></span>
-                                        </a>
-                                    </td>
+                                    @if($restart > 0)
+                                        <tr style="color:#99cc32">
+                                        <td>{{ $increment }}</td>
+                                        <td>{{ $quiz->topic }}&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                                        <td>{{ $quiz->totalquestions }}</td>
+                                        <td>{{ $quiz->mark }}</td>
+                                        <td>{{ $quiz->timelimit }}&nbsp;min</td>
+                                        <td><b><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td>
+                                        </tr>
                                     @else
-                                        <td><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1"
-                                                style="margin:0px;background:red"><span
-                                                    class="glyphicon glyphicon-new-window"
-                                                    aria-hidden="true"></span>&nbsp;<span
-                                                    class="title1"><b>Restart</b></span>
-                                        </a>
-                                    </td>
+                                        <tr>
+                                        <td>{{ $increment }}</td>
+                                        <td>{{ $quiz->topic }}</td>
+                                        <td>{{ $quiz->totalquestions }}</td>
+                                        <td>{{ $quiz->mark }}</td>
+                                        <td>{{ $quiz->timelimit }}&nbsp;min</td>
+                                        <td><b><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
+                                        </tr>
                                     @endif
 
                                 </tr>

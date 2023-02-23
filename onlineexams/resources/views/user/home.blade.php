@@ -19,62 +19,36 @@
                     <td><b>Time limit</b></td>
                     <td></td>
                   </tr>
-                  <tr style="color:#99cc32">
-                    <td>1</td>
-                    <td>Laravel&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td>
-                  </tr>
-                  <tr style="color:#99cc32">
-                    <td>2</td>
-                    <td>Ddss&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td>
-                  </tr>
-                  <tr style="color:#99cc32">
-                    <td>3</td>
-                    <td>Linux:startup&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>10&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td>
-                  </tr>
-                  <tr>    
-                    <td>4</td>
-                    <td>Networking</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>5&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>C++ Coding</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>5&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
-                  </tr>
-                  <tr>
-                    <td>6</td>
-                    <td>Php Coding</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>5&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
-                  </tr>
-                  <tr>
-                    <td>7</td>
-                    <td>Linux : File Managment</td>
-                    <td>2</td>
-                    <td>4</td>
-                    <td>5&nbsp;min</td>
-                    <td><b><a href={{ route('userexam') }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
-                  </tr>
+                  <input type="hidden" {{ $increment = 1 }}>
+                            
+                  @foreach ($quizzes as $quiz)
+                      <input type="hidden" {{ $restart = 0 }}>
+                      @foreach ($scores as $score)
+                          @if ($score->email == Session::get('developer')->email && $score->topic == $quiz->topic)
+                              <input type="hidden" {{ $restart++ }}>
+                          @endif
+                      @endforeach
+                      @if($restart > 0)
+                        <tr style="color:#99cc32">
+                          <td>{{ $increment }}</td>
+                          <td>{{ $quiz->topic }}&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                          <td>{{ $quiz->totalquestions }}</td>
+                          <td>{{ $quiz->mark }}</td>
+                          <td>{{ $quiz->timelimit }}&nbsp;min</td>
+                          <td><b><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></td>
+                        </tr>
+                      @else
+                        <tr>
+                          <td>{{ $increment }}</td>
+                          <td>{{ $quiz->topic }}</td>
+                          <td>{{ $quiz->totalquestions }}</td>
+                          <td>{{ $quiz->mark }}</td>
+                          <td>{{ $quiz->timelimit }}&nbsp;min</td>
+                          <td><b><a href={{ route('startquiz', $quiz->topic) }} class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td>
+                        </tr>
+                      @endif
+                       <input type="hidden" {{ $increment = 1 }}>
+                  @endforeach
                 </table>
               </div>
             </div>
