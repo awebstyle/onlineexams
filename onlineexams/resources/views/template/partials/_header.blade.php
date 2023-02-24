@@ -92,7 +92,7 @@
             <ul class="nav navbar-nav">
               <li class="{{ Request::is('/dashboard') ? 'active' : '' }}" ><a href={{ route('home') }}><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>
               <li class="{{ Request::is('user/history') ? 'active' : '' }}"><a href={{ route('userhistory') }}><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;History</a></li>
-              <li class="{{ Request::is('user/ranking') ? 'active' : '' }}"><a href={{ route('userranking')}}><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking</a></li>
+              <li class="{{ Request::is('/ranking') ? 'active' : '' }}"><a href={{ route('ranking')}}><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking</a></li>
               <li class="pull-right"> <a href={{ route('logout') }}><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Signout</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
@@ -139,8 +139,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href={{ route('home') }}>Home<span class="sr-only">(current)</span></a></li>
-                    <li class="{{ Request::is('admin/users') ? 'active' : '' }}"><a href={{ route('usersindex') }}>Users</a></li>
-                    <li class="{{ Request::is('admin/ranking') ? 'active' : '' }}"><a href={{ route('adminranking') }}>Ranking</a></li>
+                    <li class="{{ Request::is('admin/users') ? 'active' : '' }}"><a href={{ route('developers.index') }}>Users</a></li>
+                    <li class="{{ Request::is('/ranking') ? 'active' : '' }}"><a href={{ route('ranking') }}>Ranking</a></li>
                     <li class="{{ Request::is('admin/feedback') || Request::is('admin/feedback/*') ? 'active' : '' }}"><a href={{ route('adminfeedback') }}>Feedback</a></li>
                     <li class="{{ Request::is('admin/quiz/*') ? 'active' : '' }} dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

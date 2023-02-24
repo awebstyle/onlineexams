@@ -25,9 +25,11 @@
                   <td>{{ $score->topic }}</td>
                   <td>{{ $score->solved }}</td>
                   <td>{{ $score->score / $score->mark}}</td>
+                  {{-- erreur dans le calcul, ce n'est pas $score->score - ... mais $score->solved --}}
                   <td>{{ $score->solved - ($score->score/$score->mark)}}</td>
                   <td>{{ $score->score }}</td>
                 </tr>
+                <input type='hidden' {{ $increment++ }}/>
               @endforeach
               
             </table>

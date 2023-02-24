@@ -15,9 +15,10 @@ class DevelopersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
+        $developers = Developer::all();
+        return view('developers.index')->with('developers', $developers);
     }
 
     /**
