@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Quiz;
 use App\Models\Score;
 use App\Models\Developer;
+use App\Models\Feedback;
 
 
 class UserController extends Controller
@@ -22,6 +23,8 @@ class UserController extends Controller
         $developers = Developer::orderBy('score', 'desc')->get();
         return view('user.ranking')->with('developers', $developers);
     }
+
+    
 
    
 }

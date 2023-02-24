@@ -8,6 +8,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\QuizzController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\DevelopersController;
+use App\Http\Controllers\FeedbacksController;
 
 
 
@@ -29,14 +30,18 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [AdminController::class, 'home'])->name('home');
 Route::get('/ranking', [UserController::class, 'ranking'])->name('ranking');
-Route::get('/admin/feedback', [AdminController::class, 'adminFeedback'])->name('adminfeedback');
-Route::get('/admin/feedback/viewfeedback', [AdminController::class, 'viewAdminFeedback'])->name('viewadminfeedback');
+Route::get('/feedback', [AdminController::class, 'feedback'])->name('feedback');
+Route::get('/feedback/viewfeedback', [AdminController::class, 'viewFeedback'])->name('viewfeedback');
 Route::get('/startquiz/{topic}', [AdminController::class, 'startQuiz'])->name('startquiz');
 Route::get('/assessements', [AdminController::class, 'assessements'])->name('assessements');
 Route::post('/saveanswer/{id}', [AdminController::class, 'saveAnswer'])->name('saveanswer');
 Route::get('/quiz/nextquestion', [AdminController::class, 'nextQuestion'])->name('nextquestion');
 Route::get('/getresults', [AdminController::class, 'getResults'])->name('getresults');
 
+Route::get('/feedback', [FeedbacksController::class, 'feedback'])->name('feedback');
+Route::get('/feedback/feedbacksuccess', [FeedbacksController::class, 'feedbackSuccess'])->name('feedbacksuccess');
+Route::post('/feedback/sendfeedback', [FeedbacksController::class, 'sendFeedback'])->name('sendfeedback');
+//Route::get('/feedback/list', [FeedbacksController::class, 'index'])->name('feedbacks.index');
 
 
 Route::get('/admin/quiz/destroy', [QuizzController::class, 'destroy'])->name('quizdestroy');
@@ -52,5 +57,6 @@ Route::get('/user/history', [UserController::class, 'userHistory'])->name('userh
 Route::resource('quizzes', QuizzController::class);
 Route::resource('questions', QuestionsController::class);
 Route::resource('developers', DevelopersController::class);
+Route::resource('feedbacks', FeedbacksController::class);
 
 

@@ -141,7 +141,7 @@
                     <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href={{ route('home') }}>Home<span class="sr-only">(current)</span></a></li>
                     <li class="{{ Request::is('admin/users') ? 'active' : '' }}"><a href={{ route('developers.index') }}>Users</a></li>
                     <li class="{{ Request::is('/ranking') ? 'active' : '' }}"><a href={{ route('ranking') }}>Ranking</a></li>
-                    <li class="{{ Request::is('admin/feedback') || Request::is('admin/feedback/*') ? 'active' : '' }}"><a href={{ route('adminfeedback') }}>Feedback</a></li>
+                    <li class="{{ Request::is('/feedback/list') || Request::is('/feedback/*') ? 'active' : '' }}"><a href={{ route('feedbacks.index') }}>Feedback</a></li>
                     <li class="{{ Request::is('admin/quiz/*') ? 'active' : '' }} dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false">Quiz<span class="caret"></span></a>

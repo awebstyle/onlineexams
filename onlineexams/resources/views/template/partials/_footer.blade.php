@@ -11,7 +11,7 @@
             <a href="#" data-toggle="modal" data-target="#developers">Developers</a>
         </div>
         <div class="col-md-3 box">
-            <a href="#" target="_blank">Feedback</a>
+            <a href={{ route('feedback') }} target="_blank">Feedback</a>
         </div>
     </div>
     <!-- Modal For Developers-->

@@ -1,5 +1,10 @@
 <div class="panel">
         <div class="table-responsive">
+            @if(Session::has('status'))
+                <div class="alert alert-success">
+                    {{Session::get('status')}}
+                </div>
+            @endif
             <table class="table table-striped title1">
                 <tr>
                     <td><b>S.N.</b></td>
@@ -11,32 +16,31 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td><a title="Click to open feedback" href={{ route('viewadminfeedback') }}></a></td>
-                    <td></td>
-                    <td>28-03-2022</td>
-                    <td>10:05:18am</td>
-                    <td></td>
-                    <td><a title="Open Feedback" href={{ route('viewadminfeedback') }}><b><span
-                                    class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></b></a></td>
-                    <td><a title="Delete Feedback" href="update.php?fdid=62416c3e66064"><b><span
-                                    class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td>
+                <input type="hidden" {{$increment = 1}}/>
+                @foreach($feedbacks as $feedback)
+                    @inject('carbon', 'Carbon\Carbon')
+                    <tr>
+                        <td>{{$increment}}</td>
+                        <td><a title="Click to open feedback" href={{ route('feedbacks.show', $feedback->id)}}>{{$feedback->subject}}</a></td>
+                        <td>{{$feedback->email}}</td>
+                        <td>{{ $carbon::parse($feedback->created_at)->translatedFormat('F d') }}</td>
+                        <td>{{ $carbon::parse($feedback->created_at)->translatedFormat('H') }} h</td>
+                        <td>{{ $feedback->name}}</td>
+                        <td><a title="Open Feedback" href={{ route('feedbacks.show', $feedback->id)}}><b><span
+                                        class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></b></a></td>
+                        <td>
+                            <form method="POST" action={{ route('feedbacks.destroy', $feedback->id)}}>
+                                @csrf
+                                @method('delete')
+                                <button type="sumit"><span
+                                        class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            
+                            </form>            
+                        </td>
 
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a title="Click to open feedback" href={{ route('viewadminfeedback') }}></a></td>
-                    <td></td>
-                    <td>10-05-2020</td>
-                    <td>10:43:31am</td>
-                    <td>Grade 12 - Class 2</td>
-                    <td><a title="Open Feedback" href={{ route('viewadminfeedback') }}><b><span
-                                    class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></b></a></td>
-                    <td><a title="Delete Feedback" href="update.php?fdid=5eb7beb3bf632"><b><span
-                                    class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td>
-
-                </tr>
+                    </tr>
+                @endforeach
+                
             </table>
         </div>
     </div>
