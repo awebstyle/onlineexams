@@ -17,29 +17,19 @@
                 <td><b>Right</b></td>
                 <td><b>Wrong<b></td>
                 <td><b>Score</b></td>
-              </tr>  
-              <tr>
-                <td>1</td>
-                <td>Linux:startup</td>
-                <td>5</td><td>1</td>
-                <td>4</td><td>-2</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Laravel</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Ddss</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td>1</td>
-              </tr>
+              </tr> 
+              <input type='hidden' {{ $increment = 1}}/>
+              @foreach($scores as $score) 
+                <tr>
+                  <td>{{ $increment }}</td>
+                  <td>{{ $score->topic }}</td>
+                  <td>{{ $score->solved }}</td>
+                  <td>{{ $score->score / $score->mark}}</td>
+                  <td>{{ $score->solved - ($score->score/$score->mark)}}</td>
+                  <td>{{ $score->score }}</td>
+                </tr>
+              @endforeach
+              
             </table>
           </div>
         </div>

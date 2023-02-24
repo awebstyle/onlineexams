@@ -171,22 +171,26 @@ class AdminController extends Controller
     }
 
     public function getResults(){
-        if(Session::has('admin')){
-            $score = Score::where('topic', Session::get('quiz')->topic)
+        if(Session::has('quiz')){
+            if(Session::has('admin')){
+                $score = Score::where('topic', Session::get('quiz')->topic)
                 ->where('email', Session::get('admin')->email)
                 ->first();
-        }
-        else{
-            $score = Score::where('topic', Session::get('quiz')->topic)
+            }
+            else{
+                $score = Score::where('topic', Session::get('quiz')->topic)
                 ->where('email', Session::get('developer')->email)
                 ->first();
-        }
-       
-        Session::forget('quiz');
-        if(Session::has('admin')){
+            }
+
+            Session::forget('quiz');
+
             return view('admin.results')->with('score', $score);
+            
         }
-        else return view('user.history');
+        else return redirect('/dashboard');
+       
+        
         
     }
 

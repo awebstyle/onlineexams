@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Score;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
     } */
 
     public function userHistory(){
-        return view('user.history');
+        $scores = Score::where('email', Session::get('developer')->email)->get();
+        return view('user.history')->with('scores', $scores);
     }
 
     public function userRanking(){
