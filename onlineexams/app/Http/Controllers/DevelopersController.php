@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 use App\Models\Developer;
+use App\Models\Score;
 
 class DevelopersController extends Controller
 {
@@ -45,7 +46,7 @@ class DevelopersController extends Controller
 
         $developer->save();
         Session::put('developer', $developer);
-        return redirect('/user/home');
+        return redirect('/dashboard');
     }
 
     /**
@@ -75,8 +76,19 @@ class DevelopersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
-        //
+        $developer = Developer::find($id);
+        $developerScores = Score::where('email', $developer->email)->get();
+
+        if($developerScores){
+            foreach ($developerScores as $developerScore){
+            $developerScore->delete();
+            }
+        }
+        
+        $developer->delete();
+
+        return back()->with('status', 'the developer user account has been deleted successfully');
     }
 }

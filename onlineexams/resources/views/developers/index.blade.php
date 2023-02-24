@@ -9,7 +9,11 @@
         <!--container start-->
         <div class="row">
             <div class="col-md-12">
-                
+                @if(Session::has('status'))
+                    <div class="alert alert-success">
+                        {{ Session::get('status') }}
+                    </div>
+                @endif
                 <!--users start-->
                 <div class="panel">
                     <div class="table-responsive">
@@ -32,8 +36,14 @@
                                     <td>{{ $developer->college }}</td>
                                     <td>{{ $developer->email }}</td>
                                     <td>{{ $developer->phone }}</td>
-                                    <td><a title="Delete User" href={{ route('developers.destroy', $developer)}}><b><span
-                                                    class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td>
+                                    <td>
+                                        <form action={{route('developers.destroy', $developer->id)}} method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" value=""> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                                        </form>
+                                       
+                                
                                 </tr>
                                 {{ $increment++ }}
                             @endforeach
